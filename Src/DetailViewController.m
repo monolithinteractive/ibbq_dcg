@@ -19,7 +19,8 @@
 
 @implementation DetailViewController
 
-@synthesize toolbar, popoverController, detailItem, detailDescriptionLabel;
+@synthesize toolbar, popoverController, detailDescriptionLabel;
+@synthesize store = _store;
 
 #pragma mark -
 #pragma mark Managing the detail item
@@ -27,24 +28,35 @@
 /*
  When setting the detail item, update the view and dismiss the popover controller if it's showing.
  */
-- (void)setDetailItem:(id)newDetailItem {
-    if (detailItem != newDetailItem) {
-        [detailItem release];
-        detailItem = [newDetailItem retain];
-        
-        // Update the view.
-        [self configureView];
+- (void)setStore:(id)newStore {
+  NSLog(@"setStore");
+  if (_store != newStore) {
+    if (_store != nil) {
+      [mapView removeAnnotation:_store]; 
     }
-
-    if (popoverController != nil) {
-        [popoverController dismissPopoverAnimated:YES];
-    }        
+    [_store release];
+    _store = [newStore retain];
+    
+    // Update the view.
+    [self configureView];
+  }
+  
+  if (popoverController != nil) {
+    [popoverController dismissPopoverAnimated:YES];
+  }
 }
 
 
 - (void)configureView {
-    // Update the user interface for the detail item.
-    detailDescriptionLabel.text = [detailItem description];   
+  // Update the user interface for the detail item.
+  @try {
+    detailDescriptionLabel.text = [_store title];
+    [mapView addAnnotation:_store];
+    [mapView setCenterCoordinate:_store.coordinate];
+  }
+  @catch (NSException * e) {
+    detailDescriptionLabel.text = @"";
+  }
 }
 
 
@@ -52,24 +64,24 @@
 #pragma mark Split view support
 
 - (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)pc {
-    
-    barButtonItem.title = @"Root List";
-    NSMutableArray *items = [[toolbar items] mutableCopy];
-    [items insertObject:barButtonItem atIndex:0];
-    [toolbar setItems:items animated:YES];
-    [items release];
-    self.popoverController = pc;
+  
+  barButtonItem.title = @"Root List";
+  NSMutableArray *items = [[toolbar items] mutableCopy];
+  [items insertObject:barButtonItem atIndex:0];
+  [toolbar setItems:items animated:YES];
+  [items release];
+  self.popoverController = pc;
 }
 
 
 // Called when the view is shown again in the split view, invalidating the button and popover controller.
 - (void)splitViewController: (UISplitViewController*)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
-    
-    NSMutableArray *items = [[toolbar items] mutableCopy];
-    [items removeObjectAtIndex:0];
-    [toolbar setItems:items animated:YES];
-    [items release];
-    self.popoverController = nil;
+  
+  NSMutableArray *items = [[toolbar items] mutableCopy];
+  [items removeObjectAtIndex:0];
+  [toolbar setItems:items animated:YES];
+  [items release];
+  self.popoverController = nil;
 }
 
 
@@ -78,45 +90,43 @@
 
 // Ensure that the view controller supports rotation and that the split view can therefore show in both portrait and landscape.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+  return YES;
 }
 
 
 #pragma mark -
 #pragma mark View lifecycle
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  mapView.showsUserLocation = YES;
+}
 
 /*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
+ - (void)viewWillAppear:(BOOL)animated {
+ [super viewWillAppear:animated];
+ }
+ */
+/*
+ - (void)viewDidAppear:(BOOL)animated {
+ [super viewDidAppear:animated];
+ }
+ */
+/*
+ - (void)viewWillDisappear:(BOOL)animated {
+ [super viewWillDisappear:animated];
+ }
+ */
+/*
+ - (void)viewDidDisappear:(BOOL)animated {
+ [super viewDidDisappear:animated];
+ }
  */
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-
 - (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.popoverController = nil;
+  // Release any retained subviews of the main view.
+  // e.g. self.myOutlet = nil;
+  self.popoverController = nil;
 }
 
 
@@ -124,21 +134,21 @@
 #pragma mark Memory management
 
 /*
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-*/
+ - (void)didReceiveMemoryWarning {
+ // Releases the view if it doesn't have a superview.
+ [super didReceiveMemoryWarning];
+ 
+ // Release any cached data, images, etc that aren't in use.
+ }
+ */
 
 - (void)dealloc {
-    [popoverController release];
-    [toolbar release];
-    
-    [detailItem release];
-    [detailDescriptionLabel release];
-    [super dealloc];
+  [popoverController release];
+  [toolbar release];
+  
+  [_store release];
+  [detailDescriptionLabel release];
+  [super dealloc];
 }
 
 @end

@@ -7,19 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import "StoreInfo.h";
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate> {
-    
-    UIPopoverController *popoverController;
-    UIToolbar *toolbar;
-    
-    id detailItem;
-    UILabel *detailDescriptionLabel;
+@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, MKMapViewDelegate> {
+  IBOutlet MKMapView * mapView;
+  UIPopoverController * popoverController;
+  UIToolbar * toolbar;
+  
+  
+  StoreInfo * _store;
+  UILabel * detailDescriptionLabel;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 
-@property (nonatomic, retain) id detailItem;
 @property (nonatomic, retain) IBOutlet UILabel *detailDescriptionLabel;
+
+@property (nonatomic, retain) StoreInfo * store;
 
 @end
