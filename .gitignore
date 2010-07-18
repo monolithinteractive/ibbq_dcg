@@ -2,3 +2,4 @@ DS_Store
 build/*
 *.mode1v3
 *.pbxuser
+Lib/json-framework/*
