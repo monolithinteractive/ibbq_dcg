@@ -15,15 +15,14 @@
   UIPopoverController * popoverController;
   UIToolbar * toolbar;
   
-  
   StoreInfo * _store;
   UILabel * detailDescriptionLabel;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-
 @property (nonatomic, retain) IBOutlet UILabel *detailDescriptionLabel;
-
 @property (nonatomic, retain) StoreInfo * store;
+
+- (IBAction)tweet;
 
 @end

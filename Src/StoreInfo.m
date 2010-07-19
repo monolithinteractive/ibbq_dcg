@@ -24,7 +24,7 @@
 }
 
 - (NSString *)title; {
-  [_storeInfo objectForKey:@"name"];
+  return [_storeInfo objectForKey:@"name"];
 }
 
 @end

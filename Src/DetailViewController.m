@@ -8,7 +8,7 @@
 
 #import "DetailViewController.h"
 #import "RootViewController.h"
-
+#import "Tweeter.h"
 
 @interface DetailViewController ()
 @property (nonatomic, retain) UIPopoverController *popoverController;
@@ -52,13 +52,29 @@
   @try {
     detailDescriptionLabel.text = [_store title];
     [mapView addAnnotation:_store];
-    [mapView setCenterCoordinate:_store.coordinate];
+    MKCoordinateRegion region;
+    region.center = _store.coordinate;
+    region.span.latitudeDelta = 0.1;
+    region.span.longitudeDelta = 0.1;
+    [mapView setRegion:region animated:YES];
   }
   @catch (NSException * e) {
     detailDescriptionLabel.text = @"";
   }
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+  NSLog(@"didSelectAnnotationView");
+  NSLog(@"class: %@", [view.annotation class]);
+}
+
+- (IBAction)tweet; {
+  NSLog(@"tweet");
+  Tweeter * tweeter = [[Tweeter alloc] init];
+  if ([tweeter login]) {
+    [tweeter tweetStore:_store];
+  }
+}
 
 #pragma mark -
 #pragma mark Split view support

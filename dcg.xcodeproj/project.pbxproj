@@ -24,6 +24,8 @@
 		A18967CD11F39CDB00FFA548 /* StoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A18967CC11F39CDB00FFA548 /* StoresTableViewController.m */; };
 		A189690711F3A61800FFA548 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A189690611F3A61800FFA548 /* MapKit.framework */; };
 		A189693811F3A84000FFA548 /* StoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A189693711F3A84000FFA548 /* StoreInfo.m */; };
+		A189699B11F3B11700FFA548 /* Tweeter.m in Sources */ = {isa = PBXBuildFile; fileRef = A189699A11F3B11700FFA548 /* Tweeter.m */; };
+		A18969FA11F3B33A00FFA548 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A18969F911F3B33A00FFA548 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,9 @@
 		A189690611F3A61800FFA548 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A189693611F3A84000FFA548 /* StoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreInfo.h; sourceTree = "<group>"; };
 		A189693711F3A84000FFA548 /* StoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreInfo.m; sourceTree = "<group>"; };
+		A189699911F3B11700FFA548 /* Tweeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweeter.h; sourceTree = "<group>"; };
+		A189699A11F3B11700FFA548 /* Tweeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweeter.m; sourceTree = "<group>"; };
+		A18969F911F3B33A00FFA548 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +74,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				A189690711F3A61800FFA548 /* MapKit.framework in Frameworks */,
+				A18969FA11F3B33A00FFA548 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +92,8 @@
 				2804200A108E984D000629CD /* DetailViewController.m */,
 				A18967CB11F39CDB00FFA548 /* StoresTableViewController.h */,
 				A18967CC11F39CDB00FFA548 /* StoresTableViewController.m */,
+				A189699911F3B11700FFA548 /* Tweeter.h */,
+				A189699A11F3B11700FFA548 /* Tweeter.m */,
 			);
 			path = Src;
 			sourceTree = "<group>";
@@ -138,6 +146,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 				A189690611F3A61800FFA548 /* MapKit.framework */,
+				A18969F911F3B33A00FFA548 /* libxml2.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -174,7 +183,8 @@
 				A18966DD11F33E3400FFA548 /* SBJsonWriter.h */,
 				A18966DE11F33E3400FFA548 /* SBJsonWriter.m */,
 			);
-			path = JSON;
+			name = JSON;
+			path = Lib/JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +259,7 @@
 				A18966E411F33E3400FFA548 /* SBJsonWriter.m in Sources */,
 				A18967CD11F39CDB00FFA548 /* StoresTableViewController.m in Sources */,
 				A189693811F3A84000FFA548 /* StoreInfo.m in Sources */,
+				A189699B11F3B11700FFA548 /* Tweeter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,8 +299,13 @@
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = "USE_LIBXML=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					$SDKROOT/usr/include/libxml2,
+					/usr/include/libxml2,
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.2;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -302,8 +318,13 @@
 				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = "USE_LIBXML=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					$SDKROOT/usr/include/libxml2,
+					/usr/include/libxml2,
+				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.2;
