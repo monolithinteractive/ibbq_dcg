@@ -14,6 +14,16 @@
 
 @synthesize stores = _stores;
 
+#pragma mark -
+#pragma mark View lifecycle
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  self.clearsSelectionOnViewWillAppear = NO;
+  self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+  [self fetchStores];
+}
+
 - (void)fetchStores; {
   NSLog(@"fetch stores");
   _responseData = [[NSMutableData data] retain];
@@ -59,51 +69,6 @@
   NSLog(@"reloadData");
   [self.tableView reloadData];
 }
-
-#pragma mark -
-#pragma mark Initialization
-
-/*
- - (id)initWithStyle:(UITableViewStyle)style {
- // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
- if ((self = [super initWithStyle:style])) {
- }
- return self;
- }
- */
-
-
-#pragma mark -
-#pragma mark View lifecycle
-
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  self.clearsSelectionOnViewWillAppear = NO;
-  self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
-  [self fetchStores];
-}
-
-/*
- - (void)viewWillAppear:(BOOL)animated {
- [super viewWillAppear:animated];
- }
- */
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- }
- */
-/*
- - (void)viewWillDisappear:(BOOL)animated {
- [super viewWillDisappear:animated];
- }
- */
-/*
- - (void)viewDidDisappear:(BOOL)animated {
- [super viewDidDisappear:animated];
- }
- */
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Override to allow orientations other than the default portrait orientation.
