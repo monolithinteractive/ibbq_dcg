@@ -15,7 +15,8 @@
   NSLog(@"tweetStore");
   NSString * username = @"iBBQ_DCG";
   NSString * password = @"Grillem!";
-  NSString * status = [NSString stringWithFormat:@"Outta beer! Quick, grab Corona @ %@ and come get some ribs!", store.title];
+  NSMutableString * status = [NSMutableString stringWithFormat:@"Outta beer! Quick, grab Corona at %@ and come get some ribs!", store.title];
+  [status replaceOccurrencesOfString:@"&" withString:@"and" options:NSBackwardsSearch range:NSMakeRange(0, [status length])];
   NSLog(@"status: %@", status);
   NSString * post = [NSString stringWithFormat:@"status=%@", [status stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
   NSData * postData = [post dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
@@ -23,8 +24,7 @@
   NSString * postLength = [NSString stringWithFormat:@"%d", [postData length]];
   NSLog(@"postLength: %@", postLength);
   // TODO: check/warn on post length
-  
-/*  NSMutableURLRequest * request = [[[NSMutableURLRequest alloc] init] autorelease];
+  NSMutableURLRequest * request = [[[NSMutableURLRequest alloc] init] autorelease];
   NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@/statuses/update.json", username, password, @"twitter.com"]];
   [request setURL:url];
   [request setHTTPMethod:@"POST"];
@@ -34,7 +34,7 @@
   [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
   [request setTimeoutInterval:30.0];
   
-  [[NSURLConnection alloc] initWithRequest:request delegate:self];*/
+  [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 #pragma mark NSURLConnection Delegate methods  
