@@ -7,7 +7,6 @@
 //
 
 #import "DetailViewController.h"
-#import "RootViewController.h"
 #import "Tweeter.h"
 
 @interface DetailViewController ()
@@ -32,7 +31,7 @@
   NSLog(@"setStore");
   if (_store != newStore) {
     if (_store != nil) {
-      [mapView removeAnnotation:_store]; 
+      [storesMapView removeAnnotation:_store];
     }
     [_store release];
     _store = [newStore retain];
@@ -51,12 +50,13 @@
   // Update the user interface for the detail item.
   @try {
     detailDescriptionLabel.text = [_store title];
-    [mapView addAnnotation:_store];
+    twitterButton.hidden = (_store == nil);
+    [storesMapView addAnnotation:_store];
     MKCoordinateRegion region;
     region.center = _store.coordinate;
-    region.span.latitudeDelta = 0.1;
-    region.span.longitudeDelta = 0.1;
-    [mapView setRegion:region animated:YES];
+    region.span.latitudeDelta = 0.005;
+    region.span.longitudeDelta = 0.005;
+    [storesMapView setRegion:region animated:YES];
   }
   @catch (NSException * e) {
     detailDescriptionLabel.text = @"";
@@ -71,9 +71,8 @@
 - (IBAction)tweet; {
   NSLog(@"tweet");
   Tweeter * tweeter = [[Tweeter alloc] init];
-  if ([tweeter login]) {
-    [tweeter tweetStore:_store];
-  }
+  [tweeter tweetStore:_store];
+  [tweeter release];
 }
 
 #pragma mark -
@@ -81,7 +80,7 @@
 
 - (void)splitViewController: (UISplitViewController*)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem*)barButtonItem forPopoverController: (UIPopoverController*)pc {
   
-  barButtonItem.title = @"Root List";
+  barButtonItem.title = @"LCBO Stores";
   NSMutableArray *items = [[toolbar items] mutableCopy];
   [items insertObject:barButtonItem atIndex:0];
   [toolbar setItems:items animated:YES];
@@ -106,7 +105,7 @@
 
 // Ensure that the view controller supports rotation and that the split view can therefore show in both portrait and landscape.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  return YES;
+  return ((interfaceOrientation == UIInterfaceOrientationLandscapeRight) || (interfaceOrientation == UIInterfaceOrientationLandscapeLeft));
 }
 
 
@@ -115,29 +114,21 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
   [super viewDidLoad];
-  mapView.showsUserLocation = YES;
+  twitterButton.hidden = (_store == nil);
+  storesMapView.delegate = self;
+  storesMapView.showsUserLocation = YES;
 }
 
-/*
- - (void)viewWillAppear:(BOOL)animated {
- [super viewWillAppear:animated];
- }
- */
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- }
- */
-/*
- - (void)viewWillDisappear:(BOOL)animated {
- [super viewWillDisappear:animated];
- }
- */
-/*
- - (void)viewDidDisappear:(BOOL)animated {
- [super viewDidDisappear:animated];
- }
- */
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+  NSLog(@"mapView didUpdateUserLocation");
+  if ((userLocation.coordinate.latitude < 180.0) && (userLocation.coordinate.longitude < 180.0)) {
+    MKCoordinateRegion region;
+    region.center = userLocation.coordinate;
+    region.span.latitudeDelta = 0.01;
+    region.span.longitudeDelta = 0.01;
+    [mapView setRegion:region animated:YES];
+  }
+}
 
 - (void)viewDidUnload {
   // Release any retained subviews of the main view.

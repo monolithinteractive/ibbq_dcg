@@ -19,7 +19,7 @@
   _responseData = [[NSMutableData data] retain];
   _stores = [[NSArray array] retain];
   // TODO: get current location:
-  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lcboapi.com/stores/near/N2R1T5"]];
+  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lcboapi.com/stores/near/N1H2T1"]];
   [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
@@ -107,7 +107,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   // Override to allow orientations other than the default portrait orientation.
-  return YES;
+  return ((interfaceOrientation == UIInterfaceOrientationLandscapeRight) || (interfaceOrientation == UIInterfaceOrientationLandscapeLeft));
 }
 
 
@@ -131,7 +131,7 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSLog(@"cellForRow");
+  //  NSLog(@"cellForRow");
   static NSString * CellIdentifier = @"Cell";
   
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -149,47 +149,6 @@
   return cell;
 }
 
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- 
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
- }   
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }   
- }
- */
-
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -201,7 +160,6 @@
       detailViewController.store = store;
     }    
   }
-//   [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 
@@ -209,10 +167,7 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-  // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-  
-  // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
@@ -222,9 +177,14 @@
 
 
 - (void)dealloc {
+  if (_stores != nil) {
+    [_stores release];
+  }
+  if (_responseData != nil) {
+    [_responseData release];
+  }
   [super dealloc];
 }
-
 
 @end
 

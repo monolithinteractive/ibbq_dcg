@@ -11,12 +11,14 @@
 #import "StoreInfo.h";
 
 @interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, MKMapViewDelegate> {
-  IBOutlet MKMapView * mapView;
+  IBOutlet MKMapView * storesMapView;
   UIPopoverController * popoverController;
   UIToolbar * toolbar;
   
   StoreInfo * _store;
   UILabel * detailDescriptionLabel;
+  
+  IBOutlet UIButton * twitterButton;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;

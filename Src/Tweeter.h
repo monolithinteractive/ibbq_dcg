@@ -13,7 +13,6 @@
   
 }
 
-- (BOOL)login;
 - (void)tweetStore:(StoreInfo *)store;
 
 @end
