@@ -91,18 +91,12 @@
 		080E96DDFE201D6D7F000001 /* Src */ = {
 			isa = PBXGroup;
 			children = (
-				A189693611F3A84000FFA548 /* StoreInfo.h */,
-				A189693711F3A84000FFA548 /* StoreInfo.m */,
 				1D3623240D0F684500981E51 /* dcgAppDelegate.h */,
 				1D3623250D0F684500981E51 /* dcgAppDelegate.m */,
-				28042009108E984D000629CD /* DetailViewController.h */,
-				2804200A108E984D000629CD /* DetailViewController.m */,
-				A18967CB11F39CDB00FFA548 /* StoresTableViewController.h */,
-				A18967CC11F39CDB00FFA548 /* StoresTableViewController.m */,
+				A1E56C7D11F772B800193BF9 /* UI */,
+				A1E56C7C11F772AF00193BF9 /* Model */,
 				A189699911F3B11700FFA548 /* Tweeter.h */,
 				A189699A11F3B11700FFA548 /* Tweeter.m */,
-				A111695111F76BCD00FBAE2B /* LoginInfoController.h */,
-				A111695211F76BCD00FBAE2B /* LoginInfoController.m */,
 			);
 			path = Src;
 			sourceTree = "<group>";
@@ -196,6 +190,28 @@
 			);
 			name = JSON;
 			path = Lib/JSON;
+			sourceTree = "<group>";
+		};
+		A1E56C7C11F772AF00193BF9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A189693611F3A84000FFA548 /* StoreInfo.h */,
+				A189693711F3A84000FFA548 /* StoreInfo.m */,
+				A111695111F76BCD00FBAE2B /* LoginInfoController.h */,
+				A111695211F76BCD00FBAE2B /* LoginInfoController.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A1E56C7D11F772B800193BF9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				28042009108E984D000629CD /* DetailViewController.h */,
+				2804200A108E984D000629CD /* DetailViewController.m */,
+				A18967CB11F39CDB00FFA548 /* StoresTableViewController.h */,
+				A18967CC11F39CDB00FFA548 /* StoresTableViewController.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
