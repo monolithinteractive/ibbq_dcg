@@ -8,13 +8,13 @@
 
 #import "Tweeter.h"
 #import "JSON.h"
+#import "LoginInfoController.h"
 
 @implementation Tweeter
 
 - (void)tweetStore:(StoreInfo *)store; {
   NSLog(@"tweetStore");
-  NSString * username = @"iBBQ_DCG";
-  NSString * password = @"Grillem!";
+  LoginInfoController * loginInfo = [[LoginInfoController alloc] init];
   NSMutableString * status = [NSMutableString stringWithFormat:@"Outta beer! Quick, grab Corona at %@ and come get some ribs!", store.title];
   [status replaceOccurrencesOfString:@"&" withString:@"and" options:NSBackwardsSearch range:NSMakeRange(0, [status length])];
   NSLog(@"status: %@", status);
@@ -25,7 +25,8 @@
   NSLog(@"postLength: %@", postLength);
   // TODO: check/warn on post length
   NSMutableURLRequest * request = [[[NSMutableURLRequest alloc] init] autorelease];
-  NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@/statuses/update.json", username, password, @"twitter.com"]];
+  NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@/statuses/update.json", loginInfo.username, loginInfo.password, @"twitter.com"]];
+  NSLog(@"url: %@", url);
   [request setURL:url];
   [request setHTTPMethod:@"POST"];
   [request setValue:postLength forHTTPHeaderField:@"Content-Length"];

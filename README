@@ -1,0 +1,11 @@
+To run this application you must specify a twitter accept. To do so add a file called "login.plist" to the Res directory and add it to your project. The file contents should be:
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>username</key>
+    <string>myUsername</string>
+    <key>password</key>
+    <string>myPassword</string>
+</dict>
+</plist>
