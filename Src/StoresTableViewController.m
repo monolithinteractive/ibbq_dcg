@@ -10,9 +10,15 @@
 #import "JSON.h"
 #import "StoreInfo.h"
 
+@interface StoresTableViewController()
+- (void)fetchStores;
+@end
+
+
 @implementation StoresTableViewController
 
 @synthesize stores = _stores;
+@synthesize userCoordinate = _userCoordinate;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -21,6 +27,10 @@
   [super viewDidLoad];
   self.clearsSelectionOnViewWillAppear = NO;
   self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+}
+
+- (void)setUserCoordinate:(CLLocationCoordinate2D)coordinate; {
+  _userCoordinate = coordinate;
   [self fetchStores];
 }
 
@@ -28,8 +38,9 @@
   NSLog(@"fetch stores");
   _responseData = [[NSMutableData data] retain];
   _stores = [[NSArray array] retain];
-  // TODO: get current location:
-  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lcboapi.com/stores/near/N1H2T1"]];
+  NSString * urlString = [NSString stringWithFormat:@"http://lcboapi.com/stores/near/%f/%f/with/186510", _userCoordinate.latitude, _userCoordinate.longitude];
+  NSLog(@"urlString: %@", urlString);
+  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
   [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
@@ -130,16 +141,6 @@
 
 #pragma mark -
 #pragma mark Memory management
-
-- (void)didReceiveMemoryWarning {
-  [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-  // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-  // For example: self.myOutlet = nil;
-}
-
 
 - (void)dealloc {
   if (_stores != nil) {

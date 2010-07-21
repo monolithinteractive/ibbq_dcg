@@ -9,20 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "StoreInfo.h";
+@class StoresTableViewController;
 
-@interface DetailViewController : UIViewController <UIPopoverControllerDelegate, UISplitViewControllerDelegate, MKMapViewDelegate> {
+@interface DetailViewController : UIViewController <UISplitViewControllerDelegate, MKMapViewDelegate> {
   IBOutlet MKMapView * storesMapView;
-  UIPopoverController * popoverController;
-  UIToolbar * toolbar;
+  IBOutlet StoresTableViewController * storesList;
   
   StoreInfo * _store;
-  UILabel * detailDescriptionLabel;
+  IBOutlet UILabel * _titleLabel;
   
   IBOutlet UIButton * twitterButton;
 }
 
-@property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UILabel *detailDescriptionLabel;
 @property (nonatomic, retain) StoreInfo * store;
 
 - (IBAction)tweet;
