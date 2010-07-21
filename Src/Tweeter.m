@@ -26,7 +26,6 @@
   // TODO: check/warn on post length
   NSMutableURLRequest * request = [[[NSMutableURLRequest alloc] init] autorelease];
   NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@@%@/statuses/update.json", loginInfo.username, loginInfo.password, @"twitter.com"]];
-  NSLog(@"url: %@", url);
   [request setURL:url];
   [request setHTTPMethod:@"POST"];
   [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
