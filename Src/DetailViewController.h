@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "StoreInfo.h";
+#import "StoreInfo.h"
 @class StoresTableViewController;
 
 @interface DetailViewController : UIViewController <UISplitViewControllerDelegate, MKMapViewDelegate> {

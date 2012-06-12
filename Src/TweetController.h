@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "StoreInfo.h"
 
-@interface Tweeter : NSObject {
+@interface TweetController : NSObject {
   
 }
 

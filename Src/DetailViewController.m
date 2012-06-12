@@ -7,7 +7,7 @@
 //
 
 #import "DetailViewController.h"
-#import "Tweeter.h"
+#import "TweetController.h"
 #import "StoresTableViewController.h"
 
 @interface DetailViewController ()
@@ -63,7 +63,7 @@
 
 - (IBAction)tweet; {
   NSLog(@"tweet");
-  Tweeter * tweeter = [[Tweeter alloc] init];
+  TweetController * tweeter = [[TweetController alloc] init];
   [tweeter tweetStore:_store];
   [tweeter release];
 }

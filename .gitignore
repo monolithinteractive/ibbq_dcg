@@ -4,3 +4,8 @@ build/*
 *.pbxuser
 Lib/json-framework/*
 Res/login.plist
+*.xcuserstate
+*.xcsettings
+*.xcuserdata
+*.xcuserdatad
+*.xcworkspacedata
