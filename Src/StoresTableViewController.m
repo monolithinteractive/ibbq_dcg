@@ -64,7 +64,8 @@
   NSLog(@"didFinishLoading");
   [connection release];
   NSString * responseString = [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];  
-  [_responseData release];
+  //[_responseData release];
+  
   
   NSDictionary * results = [responseString JSONValue];
   for (NSString * key in [results allKeys]) {

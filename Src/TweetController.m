@@ -13,6 +13,15 @@
 
 @implementation TweetController
 
+- (void)showTweetStatus:(NSNumber *)boolNumber; {
+  bool tweetSent = [boolNumber boolValue];
+  if (tweetSent == true) {
+    [[[UIAlertView alloc] initWithTitle:@"Sent Tweet" message:@"Your call for beer has been sent out." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+  } else {
+    [[[UIAlertView alloc] initWithTitle:@"Error Sending Tweet" message:@"Your call for beer could not be sent out." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+  }
+}
+
 - (void)tweetStore:(StoreInfo *)store; {
   NSLog(@"tweetStore");
   NSMutableString * status = [NSMutableString stringWithFormat:@"Outta beer! Quick, grab Corona at %@ and come get some ribs!", store.title];
@@ -25,6 +34,7 @@
     // At this point, twitter is the only account type available
     ACAccountStore *account = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    
     
     // Request access from the user to access their Twitter account
     [account requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) 
@@ -54,34 +64,14 @@
            [postRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) 
             {
               NSLog(@"Twitter response, HTTP response: %i", [urlResponse statusCode]);
-              if ([urlResponse statusCode] >= 200 && [urlResponse statusCode] < 300) {
-                [[[UIAlertView alloc] initWithTitle:@"Sent Tweet" message:@"Your call for beer has been sent out." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-              } else {
-                [[[UIAlertView alloc] initWithTitle:@"Error Sending Tweet" message:@"Your call for beer could not be sent out." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-              }
+              bool tweetSent = ([urlResponse statusCode] >= 200 && [urlResponse statusCode] < 300);
+              NSNumber * tweetSentObject = [NSNumber numberWithBool:tweetSent];
+              [self performSelectorOnMainThread:@selector(showTweetStatus:) withObject:tweetSentObject waitUntilDone:YES];
             }];
          }
        }
      }];
   }
 }
-/*
-#pragma mark NSURLConnection Delegate methods  
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {  
-  NSLog(@"didReceiveResponse");
-}  
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {  
-  NSLog(@"didReceiveData");
-}  
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {  
-  NSLog(@"didFailWithError: %@", [NSString stringWithFormat:@"Connection failed: %@", [error description]]);
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {  
-  NSLog(@"didFinishLoading");
-}
-*/
 
 @end
