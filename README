@@ -3,8 +3,10 @@ To run this application you must specify a twitter account. To do so, you must b
 The application is admittedly rough since it's a demo of what can be thrown together in a Sunday afternoon. To use it:
 - Set up Twitter account (see above)
 - Launch the app
-- See your location in the detail view (hard-coded to a location in Guelph if you're using the simulator)
+- See your location in the detail view (hard-coded to a location in Guelph if you're using the simulator or running in debug mode)
 - Notice the message: You're grilling ribs and ran out of beer
 - Choose a liquor store on the left hand side
 - Click the Twitter bird to send out a tweet asking for help with your situation
 - Tweet failure is generally due to trying to tweet too often (or too soon after your last tweet), the Twitter API has restrictions on stuff like that.
+
+If you don't see any stores in the left side, run in debug mode to use a hard-coded to a location in Guelph, since there aren't any LCBO stores near you.
